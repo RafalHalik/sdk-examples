@@ -1,0 +1,19 @@
+#
+# Copyright (c) 2020 Linumiz
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+mainmenu "Veethree sample configuration"
+
+choice
+	prompt "Hawkbit mode"
+	default VE_SIM
+
+config VE_SIM
+	bool "VE_SIM"
+	help
+	  no help.
+
+endchoice
+
+source "Kconfig.zephyr"

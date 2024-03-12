@@ -1,0 +1,377 @@
+# 0 "/workdir/zephyr/misc/empty_file.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "/workdir/zephyr/boards/native/native_posix/native_posix_64.dts" 1
+
+
+
+
+
+
+/dts-v1/;
+# 1 "/workdir/zephyr/boards/native/native_posix/native_posix.dts" 1
+
+
+
+
+
+
+# 1 "/workdir/zephyr/boards/native/native_posix/../native_sim/native_sim.dts" 1
+
+
+
+
+
+
+/dts-v1/;
+# 1 "/workdir/zephyr/dts/posix/posix.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/workdir/zephyr/dts/common/skeleton.dtsi" 1 3 4
+# 9 "/workdir/zephyr/dts/common/skeleton.dtsi" 3 4
+/ {
+ #address-cells = <1>;
+ #size-cells = <1>;
+ chosen { };
+ aliases { };
+};
+# 8 "/workdir/zephyr/dts/posix/posix.dtsi" 2 3 4
+# 1 "/workdir/zephyr/dts/common/mem.h" 1 3 4
+# 9 "/workdir/zephyr/dts/posix/posix.dtsi" 2 3 4
+# 9 "/workdir/zephyr/boards/native/native_posix/../native_sim/native_sim.dts" 2
+# 1 "/workdir/zephyr/include/zephyr/dt-bindings/adc/adc.h" 1 3 4
+# 10 "/workdir/zephyr/boards/native/native_posix/../native_sim/native_sim.dts" 2
+# 1 "/workdir/zephyr/include/zephyr/dt-bindings/i2c/i2c.h" 1 3 4
+# 11 "/workdir/zephyr/boards/native/native_posix/../native_sim/native_sim.dts" 2
+# 1 "/workdir/zephyr/include/zephyr/dt-bindings/gpio/gpio.h" 1 3 4
+# 12 "/workdir/zephyr/boards/native/native_posix/../native_sim/native_sim.dts" 2
+
+/ {
+ model = "Native Sim Board";
+ compatible = "zephyr,posix";
+
+ chosen {
+  zephyr,console = &uart0;
+  zephyr,shell-uart = &uart0;
+  zephyr,uart-mcumgr = &uart0;
+  zephyr,flash = &flash0;
+  zephyr,entropy = &rng;
+  zephyr,flash-controller = &flashcontroller0;
+  zephyr,display = &sdl_dc;
+  zephyr,canbus = &can_loopback0;
+  zephyr,code-partition = &slot0_partition;
+ };
+
+ aliases {
+  eeprom-0 = &eeprom0;
+  i2c-0 = &i2c0;
+  spi-0 = &spi0;
+  led0 = &led0;
+  rtc = &rtc;
+ };
+
+ leds {
+  compatible = "gpio-leds";
+  led0: led_0 {
+   gpios = <&gpio0 0 (0 << 0)>;
+   label = "Green LED";
+  };
+ };
+
+ lvgl_pointer {
+  compatible = "zephyr,lvgl-pointer-input";
+  input = <&input_sdl_touch>;
+ };
+
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  cpu0: cpu@0 {
+   compatible = "zephyr,native-posix-cpu";
+   reg = <0>;
+  };
+ };
+
+ flashcontroller0: flash-controller@0 {
+  compatible = "zephyr,sim-flash";
+  reg = <0x00000000 ((2048) * 1024)>;
+
+  #address-cells = <1>;
+  #size-cells = <1>;
+  erase-value = <0xff>;
+
+  flash0: flash@0 {
+   status = "okay";
+   compatible = "soc-nv-flash";
+   erase-block-size = <4096>;
+   write-block-size = <1>;
+   reg = <0x00000000 ((2048) * 1024)>;
+
+   partitions {
+    compatible = "fixed-partitions";
+    #address-cells = <1>;
+    #size-cells = <1>;
+
+    boot_partition: partition@0 {
+     label = "mcuboot";
+     reg = <0x00000000 0x0000C000>;
+    };
+    slot0_partition: partition@c000 {
+     label = "image-0";
+     reg = <0x0000C000 0x00069000>;
+    };
+    slot1_partition: partition@75000 {
+     label = "image-1";
+     reg = <0x00075000 0x00069000>;
+    };
+    scratch_partition: partition@de000 {
+     label = "image-scratch";
+     reg = <0x000de000 0x0001e000>;
+    };
+    storage_partition: partition@fc000 {
+     label = "storage";
+     reg = <0x000fc000 0x00004000>;
+    };
+   };
+  };
+ };
+
+ eeprom0: eeprom {
+  status = "okay";
+  compatible = "zephyr,sim-eeprom";
+  size = <((32) * 1024)>;
+ };
+
+ i2c0: i2c@100 {
+  status = "okay";
+  compatible = "zephyr,i2c-emul-controller";
+  clock-frequency = <100000>;
+  #address-cells = <1>;
+  #size-cells = <0>;
+  reg = <0x100 4>;
+ };
+
+ spi0: spi@200 {
+  status = "okay";
+  compatible = "zephyr,spi-emul-controller";
+  clock-frequency = <50000000>;
+  #address-cells = <1>;
+  #size-cells = <0>;
+  reg = <0x200 4>;
+ };
+
+ espi0: espi@300 {
+  status = "okay";
+  compatible = "zephyr,espi-emul-controller";
+  reg = <0x300 4>;
+  #address-cells = <1>;
+  #size-cells = <0>;
+ };
+
+ uart0: uart {
+  status = "okay";
+  compatible = "zephyr,native-posix-uart";
+
+
+
+  current-speed = <0>;
+ };
+
+ uart1: uart_1 {
+  status = "okay";
+  compatible = "zephyr,native-posix-uart";
+
+
+
+  current-speed = <0>;
+ };
+
+ rng: rng {
+  status = "okay";
+  compatible = "zephyr,native-posix-rng";
+ };
+
+ counter0: counter {
+  status = "okay";
+  compatible = "zephyr,native-posix-counter";
+ };
+
+ gpio0: gpio@800 {
+  status = "okay";
+  compatible = "zephyr,gpio-emul";
+  reg = <0x800 0x4>;
+  rising-edge;
+  falling-edge;
+  high-level;
+  low-level;
+  gpio-controller;
+  #gpio-cells = <2>;
+ };
+
+ zephyr_udc0: udc0 {
+  compatible = "zephyr,native-posix-udc";
+ };
+
+ sdl_dc: sdl_dc {
+  compatible = "zephyr,sdl-dc";
+
+
+
+
+  height = <650>;
+  width = <600>;
+ };
+
+
+ input_sdl_touch: input-sdl-touch {
+  compatible = "zephyr,input-sdl-touch";
+ };
+
+ can_loopback0: can_loopback0 {
+  status = "okay";
+  compatible = "zephyr,can-loopback";
+  sample-point = <875>;
+  bus-speed = <125000>;
+ };
+
+ can0: can {
+  status = "disabled";
+  compatible = "zephyr,native-linux-can";
+
+
+
+  host-interface = "zcan0";
+  sample-point = <875>;
+  bus-speed = <125000>;
+ };
+
+ rtc: rtc {
+  status = "okay";
+  compatible = "zephyr,rtc-emul";
+  alarms-count = <2>;
+ };
+
+ adc0: adc {
+  compatible = "zephyr,adc-emul";
+  nchannels = <2>;
+  #io-channel-cells = <1>;
+  status = "okay";
+ };
+
+ dma: dma {
+  compatible = "zephyr,dma-emul";
+  #dma-cells = <1>;
+  stack-size = <4096>;
+ };
+};
+# 8 "/workdir/zephyr/boards/native/native_posix/native_posix.dts" 2
+# 9 "/workdir/zephyr/boards/native/native_posix/native_posix_64.dts" 2
+# 0 "<command-line>" 2
+# 1 "/workdir/projects/examples/lvgl/boards/native_posix_64.overlay" 1
+
+
+
+
+
+# 1 "/workdir/projects/examples/lvgl/boards/native_posix.overlay" 1
+
+
+
+
+
+
+# 1 "/workdir/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
+# 8 "/workdir/projects/examples/lvgl/boards/native_posix.overlay" 2
+# 1 "/workdir/zephyr/include/zephyr/dt-bindings/lvgl/lvgl.h" 1 3 4
+# 9 "/workdir/projects/examples/lvgl/boards/native_posix.overlay" 2
+
+/ {
+ aliases {
+  sw0 = &button0;
+ };
+
+ qdec {
+  compatible = "gpio-qdec";
+  gpios = <&gpio0 4 (0 << 0)>, <&gpio0 5 (0 << 0)>;
+  steps-per-period = <4>;
+  zephyr,axis = <0x08>;
+  sample-time-us = <2000>;
+  idle-timeout-ms = <200>;
+ };
+
+
+
+
+ keys: keys {
+  compatible = "gpio-keys";
+  button0: button0 {
+
+   gpios = <&gpio0 1 (0 << 0)>;
+   zephyr,code = <19>;
+  };
+
+  button1: button1 {
+   gpios = <&gpio0 2 (0 << 0)>;
+   zephyr,code = <48>;
+  };
+
+  encoder_button: encoder_button {
+   gpios = <&gpio0 3 (0 << 0)>;
+   zephyr,code = <11>;
+  };
+
+  button_left: button_left {
+   gpios = <&gpio0 6 (0 << 0)>;
+   zephyr,code = <105>;
+  };
+
+  button_right: button_right {
+   gpios = <&gpio0 7 (0 << 0)>;
+   zephyr,code = <106>;
+  };
+
+  button_enter: button_enter {
+   gpios = <&gpio0 8 (0 << 0)>;
+   zephyr,code = <28>;
+  };
+ };
+
+ lvgl_button_input {
+  compatible = "zephyr,lvgl-button-input";
+  input = <&keys>;
+  input-codes = <48>;
+  coordinates = <160 120>;
+ };
+
+ lvgl_encoder_input {
+  compatible = "zephyr,lvgl-encoder-input";
+  rotation-input-code = <0x08>;
+  button-input-code = <11>;
+ };
+
+ lvgl_keypad_input {
+  compatible = "zephyr,lvgl-keypad-input";
+  input = <&keys>;
+  input-codes = <105 106 28>;
+  lvgl-codes = <20 19 10>;
+ };
+};
+
+&gpio0 {
+ ngpios = <9>;
+
+ sdl_gpio {
+  status = "okay";
+  compatible = "zephyr,gpio-emul-sdl";
+
+  scancodes = <0 21 5 30 31 32 80 79 40>;
+ };
+};
+# 7 "/workdir/projects/examples/lvgl/boards/native_posix_64.overlay" 2
+# 0 "<command-line>" 2
+# 1 "/workdir/zephyr/misc/empty_file.c"
