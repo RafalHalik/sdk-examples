@@ -102,6 +102,10 @@ int main(void)
 
 #ifdef CONFIG_VE_SIM
 	create_sim();
+	lv_obj_t *screen = lv_obj_create(lv_scr_act());
+	lv_obj_set_size(screen, 550, 350);
+	lv_obj_set_pos(screen, 75, 75);
+	lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
 #endif /* CONFIG_VT_SIM */
 
 
@@ -110,7 +114,7 @@ int main(void)
 	lv_obj_t *arc;
 	lv_group_t *arc_group;
 
-	arc = lv_arc_create(lv_scr_act());
+	arc = lv_arc_create(screen);
 	lv_obj_align(arc, LV_ALIGN_CENTER, 0, -15);
 	lv_obj_set_size(arc, 150, 150);
 
@@ -124,7 +128,7 @@ int main(void)
 	lv_group_t *btn_matrix_group;
 	static const char *const btnm_map[] = {"1", "2", "3", "4", ""};
 
-	btn_matrix = lv_btnmatrix_create(lv_scr_act());
+	btn_matrix = lv_btnmatrix_create(screen);
 	lv_obj_align(btn_matrix, LV_ALIGN_CENTER, 0, 70);
 	lv_btnmatrix_set_map(btn_matrix, (const char **)btnm_map);
 	lv_obj_set_size(btn_matrix, 100, 50);
@@ -137,19 +141,19 @@ int main(void)
 	if (IS_ENABLED(CONFIG_LV_Z_POINTER_KSCAN) || IS_ENABLED(CONFIG_LV_Z_POINTER_INPUT)) {
 		lv_obj_t *hello_world_button;
 
-		hello_world_button = lv_btn_create(lv_scr_act());
+		hello_world_button = lv_btn_create(screen);
 		lv_obj_align(hello_world_button, LV_ALIGN_CENTER, 0, -15);
 		lv_obj_add_event_cb(hello_world_button, lv_btn_click_callback, LV_EVENT_CLICKED,
 				    NULL);
 		hello_world_label = lv_label_create(hello_world_button);
 	} else {
-		hello_world_label = lv_label_create(lv_scr_act());
+		hello_world_label = lv_label_create(screen);
 	}
 
 	lv_label_set_text(hello_world_label, "Hello world!");
 	lv_obj_align(hello_world_label, LV_ALIGN_CENTER, 0, 0);
 
-	count_label = lv_label_create(lv_scr_act());
+	count_label = lv_label_create(screen);
 	lv_obj_align(count_label, LV_ALIGN_CENTER, 0, 200);
 
 	lv_task_handler();
