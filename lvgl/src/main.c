@@ -108,8 +108,8 @@ int main(void)
 #endif /* CONFIG_VT_SIM */
 
 	lv_obj_t *screen = lv_obj_create(lv_scr_act());
-	lv_obj_set_size(screen, 550, 350);
-	lv_obj_set_pos(screen, 75, 75);
+	lv_obj_set_size(screen, 480, 272);
+	lv_obj_set_pos(screen, 50, 50);
 	lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
 	lv_disp_set_default(screen);
 	
