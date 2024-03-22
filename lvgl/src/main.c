@@ -111,8 +111,7 @@ int main(void)
 	lv_obj_set_size(screen, 480, 272);
 	lv_obj_set_pos(screen, 50, 50);
 	lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
-	lv_disp_set_default(screen);
-	
+		
 #ifdef CONFIG_LV_Z_ENCODER_INPUT
 	lv_obj_t *arc;
 	lv_group_t *arc_group;
