@@ -42,15 +42,6 @@ static void button_isr_callback(const struct device *port,
 }
 #endif /* CONFIG_GPIO */
 
-#ifdef CONFIG_LV_Z_ENCODER_INPUT
-static const struct device *lvgl_encoder =
-	DEVICE_DT_GET(DT_COMPAT_GET_ANY_STATUS_OKAY(zephyr_lvgl_encoder_input));
-#endif /* CONFIG_LV_Z_ENCODER_INPUT */
-
-#ifdef CONFIG_LV_Z_KEYPAD_INPUT
-static const struct device *lvgl_keypad =
-	DEVICE_DT_GET(DT_COMPAT_GET_ANY_STATUS_OKAY(zephyr_lvgl_keypad_input));
-#endif /* CONFIG_LV_Z_KEYPAD_INPUT */
 
 static void lv_btn_click_callback(lv_event_t *e)
 {
@@ -61,8 +52,6 @@ static void lv_btn_click_callback(lv_event_t *e)
 
 int main(void)
 {
-	
-
 	char count_str[11] = {0};
 	const struct device *display_dev;
 	lv_obj_t *hello_world_label;
@@ -105,14 +94,17 @@ int main(void)
 
 #ifdef CONFIG_VE_SIM
 	create_sim();
-#endif /* CONFIG_VT_SIM */
-
 	lv_obj_t *screen = lv_obj_create(lv_scr_act());
 	lv_obj_set_size(screen, 480, 272);
 	lv_obj_set_pos(screen, 50, 50);
 	lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
-		
-#ifdef CONFIG_LV_Z_ENCODER_INPUT
+#else
+		lv_obj_t *screen = lv_scr_act();
+#endif /* CONFIG_VT_SIM */
+
+	
+
+	
 	lv_obj_t *arc;
 	lv_group_t *arc_group;
 
@@ -122,10 +114,8 @@ int main(void)
 
 	arc_group = lv_group_create();
 	lv_group_add_obj(arc_group, arc);
-	lv_indev_set_group(lvgl_input_get_indev(lvgl_encoder), arc_group);
-#endif /* CONFIG_LV_Z_ENCODER_INPUT */
+	
 
-#ifdef CONFIG_LV_Z_KEYPAD_INPUT
 	lv_obj_t *btn_matrix;
 	lv_group_t *btn_matrix_group;
 	static const char *const btnm_map[] = {"1", "2", "3", "4", ""};
@@ -137,10 +127,8 @@ int main(void)
 
 	btn_matrix_group = lv_group_create();
 	lv_group_add_obj(btn_matrix_group, btn_matrix);
-	lv_indev_set_group(lvgl_input_get_indev(lvgl_keypad), btn_matrix_group);
-#endif /* CONFIG_LV_Z_KEYPAD_INPUT */
 
-	if (IS_ENABLED(CONFIG_LV_Z_POINTER_KSCAN) || IS_ENABLED(CONFIG_LV_Z_POINTER_INPUT)) {
+	
 		lv_obj_t *hello_world_button;
 
 		hello_world_button = lv_btn_create(screen);
@@ -148,15 +136,12 @@ int main(void)
 		lv_obj_add_event_cb(hello_world_button, lv_btn_click_callback, LV_EVENT_CLICKED,
 				    NULL);
 		hello_world_label = lv_label_create(hello_world_button);
-	} else {
-		hello_world_label = lv_label_create(screen);
-	}
 
 	lv_label_set_text(hello_world_label, "Hello world!");
 	lv_obj_align(hello_world_label, LV_ALIGN_CENTER, 0, 0);
 
 	count_label = lv_label_create(screen);
-	lv_obj_align(count_label, LV_ALIGN_CENTER, 0, 200);
+	lv_obj_align(count_label, LV_ALIGN_CENTER, 0, 100);
 
 	lv_task_handler();
 	display_blanking_off(display_dev);
