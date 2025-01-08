@@ -111,7 +111,7 @@ int main(void)
 
 	
 	hello_world_label = lv_label_create(screen);	
-	//hello_world_label = lv_label_create(lv_scr_act());	
+		
 
 	lv_label_set_text(hello_world_label, "Hello world!");
 	lv_obj_align(hello_world_label, LV_ALIGN_CENTER, 0, 0);
@@ -131,11 +131,6 @@ int main(void)
 		sprintf(count_str, "Hello World! %d", count);
 		lv_label_set_text(hello_world_label, count_str);	
 		lv_task_handler();	
-		if (BTN_FLAGS_TEST)
-		{
-			count++;		
-			BTN_FLAGS_TEST = 0;	
-		}		
 		k_sleep(K_MSEC(10));
 	}
 

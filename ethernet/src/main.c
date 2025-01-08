@@ -3,7 +3,14 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <errno.h>
 
+#include "mbedtls/md.h"
 #include <zephyr/device.h>
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/display.h>
@@ -18,20 +25,7 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(app);
 
-/*
- * Copyright (c) 2018 Linaro Limited
- *
- * SPDX-License-Identifier: Apache-2.0
- */
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <errno.h>
-
-#include "mbedtls/md.h"
 
 #if !defined(__ZEPHYR__) || defined(CONFIG_POSIX_API)
 
@@ -630,10 +624,6 @@ redirect:
 			bytes2MiB(total_bytes));
 		lv_label_set_text(count_label, count_str);
 
-		// if ((count % 100) == 0U) {
-		// 	sprintf(count_str, "%d", count/100U);
-		// 	lv_label_set_text(count_label, count_str);
-		// }
 		lv_task_handler();
 		++count;
 		
@@ -643,15 +633,6 @@ redirect:
 
 	printf("Finished downloading.\n");
 
-	mbedtls_md_free(&hash_ctx);
-	// while (1) {
-	// 	if ((count % 100) == 0U) {
-	// 		sprintf(count_str, "%d", count/100U);
-	// 		lv_label_set_text(count_label, count_str);
-	// 	}
-	// 	lv_task_handler();
-	// 	++count;
-	// 	k_sleep(K_MSEC(10));
-	// }
+	mbedtls_md_free(&hash_ctx);	
 	return 0;
 }

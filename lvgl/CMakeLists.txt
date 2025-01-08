@@ -13,25 +13,11 @@ set(MCUX_SDK_PROJECT_NAME app)
 
 target_sources(app PRIVATE 
     src/main.c
-    src/lvgl_support.c
-    src/vglite_support.c
-    src/host_msd_fatfs.c
-
-    fatfs/source/fsl_usb_disk/fsl_usb_disk_bm.c 
-    fatfs/source/diskio.c
-    fatfs/source/ff.c 
-    fatfs/source/ffsystem.c 
-    fatfs/source/ffunicode.c
 
     generated/events_init.c 
     generated/gui_guider.c 
     generated/setup_scr_screen.c 
-    generated/widgets_init.c
- 
-    board/board.c 
-    board/clock_config.c 
-    board/dcd.c
-    board/pin_mux.c 
+    generated/widgets_init.c 
    
     generated/guider_fonts/lv_font_montserratMedium_10.c 
     generated/guider_fonts/lv_font_montserratMedium_16.c 
@@ -44,8 +30,7 @@ target_sources(app PRIVATE
 
 
 target_include_directories(app PUBLIC 
-    src 
-    board
+    src    
     include
     generated
     generated/guider_customer_fonts   
