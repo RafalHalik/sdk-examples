@@ -1,0 +1,36 @@
+# Available runners configured by board.cmake.
+runners:
+- jlink
+- linkserver
+- pyocd
+
+# Default flash runner if --runner is not given.
+flash-runner: jlink
+
+# Default debug runner if --runner is not given.
+debug-runner: jlink
+
+# Common runner configuration values.
+config:
+  board_dir: /workdir/zephyr/boards/nxp/mimxrt1160_evk
+  # Build outputs:
+  elf_file: zephyr.elf
+  bin_file: zephyr.bin
+  # Host tools:
+  gdb: /opt/toolchains/zephyr-sdk-0.16.9/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb-py
+  openocd: /opt/toolchains/zephyr-sdk-0.16.9/sysroots/x86_64-pokysdk-linux/usr/bin/openocd
+  openocd_search:
+    - /opt/toolchains/zephyr-sdk-0.16.9/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts
+
+# Runner specific arguments
+args:
+  jlink:
+    - --dt-flash=y
+    - --device=MIMXRT1166xxx6_M7
+    - --reset-after-load
+  linkserver:
+    - --dt-flash=y
+    - --device=MIMXRT1166xxxxx:MIMXRT1160-EVK
+  pyocd:
+    - --dt-flash=y
+    - --target=mimxrt1160_cm7
