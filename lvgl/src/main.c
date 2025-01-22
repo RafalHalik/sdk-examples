@@ -50,7 +50,7 @@ static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET_OR(SW0_NODE, gpios,
 static const struct device *const uart_dev = DEVICE_DT_GET(UART_DEVICE_NODE);
 
 lv_anim_t a;
-lv_ui guider_ui;
+lv_ui Guider_ui;
 
 static void anim_x_cb(void *var, int32_t v);
 void lv_example_anim_2(void);
@@ -64,8 +64,8 @@ int main(void)
     uint32_t fps = 0;
     
    
-    setup_ui(&guider_ui);
-    events_init(&guider_ui);
+    setup_ui(&Guider_ui);
+    events_init(&Guider_ui);
     lv_example_anim_2();
 
     uint8_t i = 0;
@@ -95,17 +95,17 @@ static void anim_x_cb(void *var, int32_t v)
 
 static void anim_size_cb(void *var, int32_t v)
 {
-    lv_bar_set_value(guider_ui.screen_bar_1, v, LV_ANIM_OFF);
-    lv_bar_set_value(guider_ui.screen_bar_2, v, LV_ANIM_OFF);
-    lv_bar_set_value(guider_ui.screen_bar_3, v, LV_ANIM_OFF);
-    lv_bar_set_value(guider_ui.screen_bar_4, v, LV_ANIM_OFF);
+    lv_bar_set_value(Guider_ui.screen_bar_1, v, LV_ANIM_OFF);
+    lv_bar_set_value(Guider_ui.screen_bar_2, v, LV_ANIM_OFF);
+    lv_bar_set_value(Guider_ui.screen_bar_3, v, LV_ANIM_OFF);
+    lv_bar_set_value(Guider_ui.screen_bar_4, v, LV_ANIM_OFF);
 
-    lv_arc_set_value(guider_ui.screen_right_btm_arc, v);
-    lv_arc_set_value(guider_ui.screen_left_top_arc, v);
-    lv_arc_set_value(guider_ui.screen_right_top_arc, v);
-    lv_arc_set_value(guider_ui.screen_left_btm_arc, v);
+    lv_arc_set_value(Guider_ui.screen_right_btm_arc, v);
+    lv_arc_set_value(Guider_ui.screen_left_top_arc, v);
+    lv_arc_set_value(Guider_ui.screen_right_top_arc, v);
+    lv_arc_set_value(Guider_ui.screen_left_btm_arc, v);
 
-    lv_meter_set_indicator_value(guider_ui.screen_meter_1, guider_ui.screen_meter_1_scale_0_ndline_0, (v * 50));
+    lv_meter_set_indicator_value(Guider_ui.screen_meter_1, Guider_ui.screen_meter_1_scale_0_ndline_0, (v * 50));
 }
 
 /**
@@ -114,7 +114,7 @@ static void anim_size_cb(void *var, int32_t v)
 void lv_example_anim_2(void)
 {
     lv_anim_init(&a);
-    lv_anim_set_var(&a, &guider_ui);
+    lv_anim_set_var(&a, &Guider_ui);
     lv_anim_set_values(&a, 0, 1000);
     lv_anim_set_time(&a, 2000);
     lv_anim_set_playback_delay(&a, 100);

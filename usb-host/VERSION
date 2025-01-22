@@ -1,0 +1,11 @@
+VERSION_MAJOR = 1
+VERSION_MINOR = 0
+PATCHLEVEL = 0
+VERSION_TWEAK = 0
+EXTRAVERSION =
+
+
+
+find . -type f -name "*.c" -exec sed -i 's/USB_HostGetDeviceAttachState/usb_host_get_device_attach_state/g' {} +
+
+find . -type f -name "*.h" -exec sed -i 's/USB_HostGetDeviceAttachState/usb_host_get_device_attach_state/g' {} +

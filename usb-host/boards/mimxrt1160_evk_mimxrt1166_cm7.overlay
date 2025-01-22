@@ -1,0 +1,3 @@
+nxp_mipi_i2c: &lpi2c5 {
+	status = "okay";
+};
