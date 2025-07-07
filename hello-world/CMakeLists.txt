@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 cmake_minimum_required(VERSION 3.20.0)
-set(BOARD_ROOT /workdir/extra_boards)
-set(EXTRA_ZEPHYR_MODULES /workdir/projects/external_modules/lvgl_veethree /workdir/projects/external_modules/usb_host_veethree /workdir/projects/external_modules/vg_lite_veethree)
+set(EXTRA_ZEPHYR_MODULES /workdir/extra_drivers/drivers/nafe13388;/workdir/extra_drivers/drivers/drv8844;/workdir/extra_drivers/drivers/flash)
+set(BOARD_ROOT /workdir/extra_boards )
+set(DTS_ROOT /workdir/extra_dts)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(app)
 
