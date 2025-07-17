@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
+set(ZEPHYR_EXTRA_MODULES /home/user/C4.3_firmware/C4.3_workspace/modules/veethree_sim "${CMAKE_SOURCE_DIR}/../../modules/bsp" "${CMAKE_SOURCE_DIR}/../../modules/nafe")
+
 # This application has its own Kconfig options.
 set(KCONFIG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/Kconfig)
 

@@ -9,13 +9,14 @@
     chosen {
         zephyr,flash-controller = &is25lx064;
         zephyr,flash = &is25lx064;
-        zephyr,code-partition = &slot0_partition;
         zephyr,console = &lpuart12;
         zephyr,shell-uart = &lpuart12;
         zephyr,uart-mcumgr = &lpuart12;
         zephyr,sram = &sdram0;
         zephyr,display = &lcdif;
         zephyr,canbus = &flexcan1;
+
+
     };
 
     aliases {
