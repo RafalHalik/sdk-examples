@@ -12,7 +12,7 @@
 #include <string.h>
 #include <zephyr/kernel.h>
 #include <lvgl_input_device.h>
-
+#include "bsp.h"
 #include <stdio.h>
 
 #ifdef CONFIG_VE_SIM
@@ -63,6 +63,7 @@ static const struct device *lvgl_keypad =
 
 int main(void)
 {
+	bsp_init();
 	const struct device *Display_dev;
 	lv_obj_t *hello_world_label;
 	char count_str[20] = {0};
