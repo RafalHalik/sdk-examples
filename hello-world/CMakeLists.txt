@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
-set(ZEPHYR_EXTRA_MODULES /home/user/C4.3_firmware/C4.3_workspace/modules/veethree_sim "${CMAKE_SOURCE_DIR}/../../modules/bsp" "${CMAKE_SOURCE_DIR}/../../modules/nafe")
+set(ZEPHYR_EXTRA_MODULES "${CMAKE_SOURCE_DIR}/../../modules/bsp" )
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
